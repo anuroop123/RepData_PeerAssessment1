@@ -18,10 +18,9 @@ activity <- read.csv('activity.csv')
 ```{r}
 dailySteps <- group_by(activity, date) %.% summarise(steps=sum(steps, na.rm=T))
 ggplot(dailySteps, aes(steps)) + geom_histogram()
-mean(dailySteps$steps)
 ```
 
-Mean daily steps = `r mean(dailySteps$steps)`
+Mean daily steps = `r mean(dailySteps$steps)` and median daily steps = `r median(dailySteps$steps)`.
 
 ## What is the average daily activity pattern?
 ```{r}
@@ -32,13 +31,19 @@ mostActiveInterval <- intervalSteps[which.max(intervalSteps$steps), "interval"]
 mostActiveInterval
 ```
 
-## Imputing missing values
-I am using the mean number of steps during a particular time interval over all the days in the place of the missing value.
+`r mostActiveInterval` time step has the most activity.
 
+## Imputing missing values
 ```{r}
 numMissing <- sum(is.na(activity$steps))
-numMissing
+```
 
+The number of missing values = `r numMissing`.
+
+I am using the mean number of steps during a particular time interval over all the days in the place of the missing value.
+
+
+```{r}
 missingInds <- which(is.na(activity$steps))
 intervalMissing <- data.frame(interval=activity[missingInds, "interval"])
 activityNew <- activity
@@ -50,7 +55,7 @@ mean(dailyStepsNew$steps)
 median(dailyStepsNew$steps)
 ```
 
-The mean number of daily steps after imputing missing values is `r mean(dailyStepsNew$steps)`. This is greater than before.
+The mean number of daily steps after imputing missing values is `r mean(dailyStepsNew$steps)` and the median is `r median(dailyStepsNew$steps)`. This are greater than before.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 ```{r}

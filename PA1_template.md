@@ -44,16 +44,8 @@ ggplot(dailySteps, aes(steps)) + geom_histogram()
 
 ![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2.png) 
 
-```r
-mean(dailySteps$steps)
-```
 
-```
-## [1] 9354
-```
-
-
-Mean daily steps = 9354.2295
+Mean daily steps = 9354.2295 and median daily steps = 10395.
 
 ## What is the average daily activity pattern?
 
@@ -96,21 +88,22 @@ mostActiveInterval
 ```
 
 
-## Imputing missing values
-I am using the mean number of steps during a particular time interval over all the days in the place of the missing value.
+835 time step has the most activity.
 
+## Imputing missing values
 
 ```r
 numMissing <- sum(is.na(activity$steps))
-numMissing
 ```
 
-```
-## [1] 2304
-```
+
+The number of missing values = 2304.
+
+I am using the mean number of steps during a particular time interval over all the days in the place of the missing value.
+
+
 
 ```r
-
 missingInds <- which(is.na(activity$steps))
 intervalMissing <- data.frame(interval = activity[missingInds, "interval"])
 activityNew <- activity
@@ -126,7 +119,7 @@ ggplot(dailyStepsNew, aes(steps)) + geom_histogram()
 ## stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
 ```
 
-![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4.png) 
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5.png) 
 
 ```r
 mean(dailyStepsNew$steps)
@@ -145,7 +138,7 @@ median(dailyStepsNew$steps)
 ```
 
 
-The mean number of daily steps after imputing missing values is 1.0766 &times; 10<sup>4</sup>. This is greater than before.
+The mean number of daily steps after imputing missing values is 1.0766 &times; 10<sup>4</sup> and the median is 1.0766 &times; 10<sup>4</sup>. This are greater than before.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
@@ -163,7 +156,7 @@ ggplot(intervalStepsNew, aes(interval, steps)) + geom_line() + facet_grid(dayTyp
     .) + xlab("Number of steps")
 ```
 
-![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5.png) 
+![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6.png) 
 
 
 As seen from the above charts, overall activity is higher on weekends, but the highest peak is in the morning on weekdays. On weekends, the activity is relatively more uniform throughout the day.
